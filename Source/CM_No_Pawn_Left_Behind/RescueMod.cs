@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
+﻿using UnityEngine;
 using RimWorld;
 using Verse;
 
@@ -14,9 +13,6 @@ namespace CM_No_Pawn_Left_Behind
 
         public RescueMod(ModContentPack content) : base(content)
         {
-            var harmony = new Harmony("CM_No_Pawn_Left_Behind");
-            harmony.PatchAll();
-
             _instance = this;
             settings = GetSettings<RescueModSettings>();
         }
