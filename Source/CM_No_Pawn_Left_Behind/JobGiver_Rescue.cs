@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using UnityEngine;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -34,10 +35,14 @@ namespace CM_No_Pawn_Left_Behind
         {
             float random = Rand.Value;
 
-            if (Prefs.DevMode && RescueMod.settings.logPriorities)
-                Log.Message(String.Format("{0} - checking rescue chance {1}/{2}", pawn, random, rescueChance));
+            float finalRescueChance = rescueChance;
+            if (RescueMod.settings.rescueChanceOverride)
+                finalRescueChance = RescueMod.settings.rescueChance;
 
-            if (random > rescueChance)
+            if (Prefs.DevMode && RescueMod.settings.logPriorities)
+                Log.Message(String.Format("{0} - checking rescue chance {1}/{2}", pawn, random, finalRescueChance));
+
+            if (random > finalRescueChance)
                 return null;
 
             if (pawn.AnimalOrWildMan() || pawn.Faction == Faction.OfPlayer || !RCellFinder.TryFindBestExitSpot(pawn, out var exitSpot))
@@ -62,9 +67,10 @@ namespace CM_No_Pawn_Left_Behind
                 return false;
             }
 
-
-            // Multiply search radius by health
+            // Multiply search radius by health to make wounded people a little less bold in the face of danger
             float maxDist = searchRadius;
+            if (RescueMod.settings.searchRadiusOverride)
+                maxDist = RescueMod.settings.searchRadius;
             if (healthSearchDistanceWeight > 0.0f)
                 maxDist *= (healthSearchDistanceWeight * rescuer.health.summaryHealth.SummaryHealthPercent);
 
@@ -97,8 +103,13 @@ namespace CM_No_Pawn_Left_Behind
 
                     priority *= (opinionPriorityWeight * opinionValue);
                 }
+
                 if (marketValuePriorityWeight > 0.0f)
-                    priority *= (marketValuePriorityWeight * pawn.MarketValue);
+                {
+                    float marketValue = Mathf.Clamp(pawn.MarketValue, 200.0f, 3000.0f);
+                    priority *= (marketValuePriorityWeight * marketValue);
+                }
+
                 if (distancePriorityWeight > 0.0f)
                     priority /= (distancePriorityWeight * (rescuer.Position.DistanceTo(pawn.Position) + 1.0f));
 
