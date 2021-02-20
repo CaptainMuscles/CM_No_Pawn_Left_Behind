@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>No Pawn Left Behind</name>
+	<name>No One Left Behind</name>
 	<author>Captain Muscles (Nathan Harbour)</author>
 	<packageId>CaptainMuscles.NoPawnLeftBehind</packageId>
 	<url>https://github.com/CaptainMuscles/CM_No_Pawn_Left_Behind</url>
@@ -9,7 +9,7 @@
 	</supportedVersions>
 	<description>Would you sit idly by and leave your friends to die? Now your enemies won't either (maybe).
   
-No Pawn Left Behind enables your enemies to rescue their fallen allies when fleeing a battle.</description>
+No One Left Behind enables your enemies to rescue their fallen allies when fleeing a battle.</description>
 	<modDependencies>
 	</modDependencies>
 
