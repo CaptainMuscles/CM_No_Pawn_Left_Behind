@@ -109,6 +109,33 @@
         </value>
       </li>
       
+      <!-- ExitMapBestAndDefendSelf duty used by traders who are leaving -->
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/DutyDef[defName="ExitMapBestAndDefendSelf"]/thinkNode</xpath>
+        <value>
+          <thinkNode Class="ThinkNode_Priority">
+            <subNodes>
+              <li Class="JobGiver_AIDefendSelf">
+                <targetAcquireRadius>35</targetAcquireRadius>
+                <targetKeepRadius>40</targetKeepRadius>
+              </li>
+              <li Class="CM_No_Pawn_Left_Behind.JobGiver_Rescue">
+                <rescueChance>1.00</rescueChance>
+                <searchRadius>20.0</searchRadius>
+                <opinionPriorityWeight>1.0</opinionPriorityWeight>
+                <marketValuePriorityWeight>1.0</marketValuePriorityWeight>
+                <distancePriorityWeight>1.0</distancePriorityWeight>
+                <healthSearchDistanceWeight>1.0</healthSearchDistanceWeight>
+              </li>
+              <li Class="JobGiver_ExitMapBest">
+                <defaultLocomotion>Walk</defaultLocomotion>
+                <jobMaxDuration>120</jobMaxDuration>
+              </li>
+            </subNodes>
+          </thinkNode>
+        </value>
+      </li>
+      
     </operations>
   </Operation>
     
