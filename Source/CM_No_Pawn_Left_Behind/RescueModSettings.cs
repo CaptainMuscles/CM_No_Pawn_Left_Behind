@@ -12,7 +12,7 @@ namespace CM_No_Pawn_Left_Behind
         public float rescueChance = 1.0f;
 
         public bool searchRadiusOverride = false;
-        public float searchRadius = 1.0f;
+        public float searchRadius = 10.0f;
 
         public override void ExposeData()
         {
